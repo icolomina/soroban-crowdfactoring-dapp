@@ -1,0 +1,18 @@
+version: '3'
+
+networks:
+  soroban-crowdfactoring:
+    external: true
+
+services:
+  database:
+    image: postgres
+    container_name: crowdfactoring-database
+    ports:
+      - "5497:5432"
+    environment:
+      POSTGRES_DB: sbcrowdf
+      POSTGRES_PASSWORD: sbcrowdf
+      POSTGRES_USER: sbcrowdf
+    networks:
+      - soroban-crowdfactoring

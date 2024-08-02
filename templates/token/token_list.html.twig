@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tokens list{% endblock %}
+
+{% block body %}
+    <div class="container-fluid px-4">
+    <h1 class="mt-4">Tokens list</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">Tokens list</li>
+    </ol>
+    
+    <div {{ react_component('TokenList') }}</div>
+{% endblock %}

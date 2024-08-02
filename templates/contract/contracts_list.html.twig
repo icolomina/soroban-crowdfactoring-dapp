@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Your Current Contracts{% endblock %}
+
+{% block body %}
+    <div class="container-fluid px-4">
+    <h1 class="mt-4">Your Current Contracts</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active"> {{ app.user.getName() }} / Current Contracts</li>
+    </ol>
+    
+    <div {{ react_component('ContractList')}} </div>
+    </div>
+{% endblock %}

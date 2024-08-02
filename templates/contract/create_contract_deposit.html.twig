@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Make a deposit{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid px-4">
+  <h1 class="mt-4">Deposits</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">Send deposit and start generating interests</li>
+    </ol>
+  
+  <div class="row" >
+    <div class="col-xl-6">
+      <div class="card mb-4">
+        <div class="card-header">
+          <i class="fas fa-chart-area me-1"></i>
+            Send deposit form
+        </div>
+        <div class="card-body">
+          <div {{ react_component('CreateContractDeposit', { contractAddress: contractAddress, tokenDecimals: tokenDecimals, url: url})}} </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

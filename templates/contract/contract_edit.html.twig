@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Contract{% endblock %}
+
+{% block body %}
+    <div class="container-fluid px-4">
+    <h1 class="mt-4">Edit contract</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active"> Contract information </li>
+    </ol>
+    
+    <dic {{ react_component('EditContract', { id: id }) }}
+{% endblock %}

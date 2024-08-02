@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Investment opportunities available{% endblock %}
+
+{% block body %}
+    <div class="container-fluid px-4">
+    <h1 class="mt-4">Investment opportunities available</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">{{ app.user.getName() }} / Investment opportunities available</li>
+    </ol>
+    
+    <div {{ react_component('AvailableContractList')}} </div>
+    </div>
+{% endblock %}
