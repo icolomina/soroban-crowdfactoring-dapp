@@ -32,7 +32,7 @@
                                     </div>
                                      {% if error %}
                                     <div class="card-footer text-center py-3">
-                                        <div class="small">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                                        <div class="small" style="color: red; ">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                                     </div>
                                      {% endif %}
                                 </div>

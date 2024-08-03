@@ -24,7 +24,7 @@ export default function DepositForm (props: DepositFormProps) {
     const [formData, setFormData] = useState<FormData>({ amount: '0' });
     const [loading, setLoading] = useState<boolean>(false);
     const [depositSuccess, setDepositSuccess] = useState<boolean>(false);
-    const [wallet, walletSelected]: any[] = useWallet([XBULL_ID, FREIGHTER_ID], FREIGHTER_ID, WalletNetwork.TESTNET);
+    let [wallet, walletSelected] = useWallet([XBULL_ID, FREIGHTER_ID], FREIGHTER_ID, WalletNetwork.TESTNET);
     const contract = new ScContract();
 
     useEffect(() => {
@@ -39,6 +39,7 @@ export default function DepositForm (props: DepositFormProps) {
                 onWalletSelected: async (option: ISupportedWallet) => {
                     wallet.setWallet(option.id);
                     await wallet.getPublicKey();
+                    walletSelected = true;
                 }
             });
         }
@@ -55,7 +56,6 @@ export default function DepositForm (props: DepositFormProps) {
         
         const tokenParser = new TokenParser();
         formData.amount = tokenParser.parseAmount(formData.amount, props.tokenDecimals).toString();
-        console.log(formData, props);
         contract.sendDeposit(wallet, props.contractAddress, formData.amount)
             .then(
                 async (trxResponse: Api.SendTransactionResponse) => {

@@ -27,4 +27,9 @@ class GetUserContractService {
 
         return $userContractsOutput;
     }
+
+    public function getUserContract(UserContract $userContract): array
+    {
+        return $this->serializer->normalize(UserContractDtoOutput::fromEntity($userContract));
+    }
 }

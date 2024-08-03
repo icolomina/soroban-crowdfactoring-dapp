@@ -2,8 +2,6 @@
 
 namespace App\Controller;
 
-use App\Api\Contract\EditContractService;
-use App\Contract\ContractManager;
 use App\Entity\Contract;
 use App\Entity\User;
 use App\Stellar\Networks;
@@ -39,6 +37,13 @@ class PagesController extends AbstractController
     public function getEditContractPage(int $id): Response
     {
         return $this->render('contract/contract_edit.html.twig', ['id' => $id]);
+    }
+
+    #[Route('/edit-user-contract/{id}', name: 'get_edit_use_contract_page', methods: ['GET'])]
+    #[IsGranted(User::ROLE_SAVER)]
+    public function getEditUserContractPage(int $id): Response
+    {
+        return $this->render('contract/user_contract_edit.html.twig', ['id' => $id]);
     }
 
     #[Route('/contract/{id}/new-deposit', name: 'get_contract_new_deposit_page', methods: ['GET'])]

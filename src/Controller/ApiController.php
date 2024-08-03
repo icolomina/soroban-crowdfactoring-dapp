@@ -14,6 +14,7 @@ use App\Dto\Input\CreateContractDto;
 use App\Dto\Input\CreateUserContractDtoInput;
 use App\Entity\Contract;
 use App\Entity\User;
+use App\Entity\UserContract;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
@@ -71,6 +72,13 @@ class ApiController extends AbstractController
     {
         $user = $this->getUser();
         return new JsonResponse($getUserContractService->getUserContracts($user));
+    }
+
+    #[Route('/user-contract/{id}', name: 'api_get_user_contract', methods: ['GET'])]
+    #[IsGranted(User::ROLE_SAVER)]
+    public function getUserContract(UserContract $userContract, GetUserContractService $getUserContractService): JsonResponse
+    {
+        return new JsonResponse($getUserContractService->getUserContract($userContract));
     }
 
     #[Route('/tokens', name: 'api_get_tokens', methods: ['GET'])]

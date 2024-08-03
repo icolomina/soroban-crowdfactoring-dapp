@@ -22,7 +22,7 @@ class UserContractDtoOutput
     public static function fromEntity(UserContract $userContract): self
     {
         $claimMonths    = $userContract->getContract()->getClaimMonths();
-        $withdrawalDate = (new \DateTime())->add(\DateInterval::createFromDateString("+ {$claimMonths} months"))->format('Y-m-d H:i');
+        $withdrawalDate = (new \DateTime())->add(\DateInterval::createFromDateString("+ {$claimMonths} months"))->format('Y-m-d');
 
         return new self(
             $userContract->getId(),

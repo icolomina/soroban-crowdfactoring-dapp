@@ -6,6 +6,7 @@ import {
     getRetrieveAvailableContractsCall, 
     getRetrieveContractsCall, 
     getRetrieveTokensCall, 
+    getRetrieveUserContractCall, 
     getRetrieveUserContractsCall, 
     getStopContractDepositsCall
 } from "../router/router";
@@ -44,6 +45,16 @@ export class Web2 {
 
     getUserContracts(): Promise<Response> {
         return fetch(getRetrieveUserContractsCall(), {
+            method: "GET",
+            mode: "same-origin",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        });
+    }
+
+    getUserContract(id: number): Promise<Response> {
+        return fetch(getRetrieveUserContractCall(id), {
             method: "GET",
             mode: "same-origin",
             headers: {

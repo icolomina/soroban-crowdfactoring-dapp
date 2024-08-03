@@ -11,6 +11,10 @@ export function getRetrieveUserContractsCall(): string {
     return window.location.origin + '/api/user-contracts';
 }
 
+export function getRetrieveUserContractCall(id: number): string {
+    return window.location.origin + '/api/user-contract/' + id;
+}
+
 export function getCreateContractCall(): string {
     return window.location.origin + '/api/contract';
 }
@@ -53,4 +57,7 @@ export function getMakeDepositToContractPage(id: number): string {
 
 export function getEditContractPage(id: number): string {
     return window.location.origin + '/pages/edit-contract/' + id;
+}
+export function getEditUserContractPage(id: number): string {
+    return window.location.origin + '/pages/edit-user-contract/' + id;
 }

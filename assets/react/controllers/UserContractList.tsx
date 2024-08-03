@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Web2 } from "../services/api/web2";
+import { getEditUserContractPage } from "../services/router/router";
 
-interface UserContract {
+export interface UserContract {
     id: number
     contractIssuer: string,
     contractAddress: string,
@@ -32,9 +33,14 @@ export default function UserContractList() {
                 }
             }
         )
-      }, []);
+      }, []
+    );
 
-      if(loading) {
+    const editUserContract = (id: number) => {
+        return window.location.replace(getEditUserContractPage(id));
+    }
+
+    if(loading) {
         return (
             <div className="text-center">
                 <div className="spinner-border" role="status">
@@ -85,6 +91,7 @@ export default function UserContractList() {
                                             <th scope="col">Deposited</th>
                                             <th scope="col">Expected interests</th>
                                             <th scope="col">Total to claim</th>
+                                            <th scope="col">Options</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -99,6 +106,9 @@ export default function UserContractList() {
                                                 <td>{ uc.deposited }</td>
                                                 <td>{ uc.interest }</td>
                                                 <td>{ uc.total }</td>
+                                                <td>
+                                                    <button className="btn btn-primary btn-sm" onClick={() => editUserContract(uc.id)} role="button" aria-disabled="true">Edit</button>
+                                                </td>
                                             </tr>
                                         ))}
                                     </tbody>

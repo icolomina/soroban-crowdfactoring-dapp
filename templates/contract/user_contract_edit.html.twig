@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit User Deposit{% endblock %}
+
+{% block body %}
+    <div class="container-fluid px-4">
+    <h1 class="mt-4">Edit User Deposit</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">{{ app.user.getName() }} / Edit User Deposit </li>
+    </ol>
+    
+    <div {{ react_component('EditUserContract', { id: id })}} </div>
+    </div>
+{% endblock %}
