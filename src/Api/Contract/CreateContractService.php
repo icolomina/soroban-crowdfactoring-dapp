@@ -28,7 +28,6 @@ class CreateContractService
 
     public function createContract(CreateContractDto $createContractDto, User|UserInterface $user): Contract
     {
-        dump($createContractDto);die;
         $token    = $this->em->getRepository(Token::class)->findOneByCode($createContractDto->token);
         $contract = $this->createContractEntityService->createContractEntity($createContractDto, $token, $user);
 
