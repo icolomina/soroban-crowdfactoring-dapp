@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Api\Contract\CreateContractService;
 use App\Api\Contract\CreateUserContractService;
 use App\Api\Contract\EditContractService;
+use App\Api\Contract\FlagUserContractAsWithdrawn;
+use App\Api\Contract\FlagUserContractAsWithdrawnService;
 use App\Api\Contract\GetUserContractService;
 use App\Api\Contract\InitializeContractService;
 use App\Api\Contract\StopContractDepositsService;
@@ -95,6 +97,14 @@ class ApiController extends AbstractController
         $user = $this->getUser();
         $createUserContractService->createUserContract($createUserContractDtoInput, $user);
 
+        return new JsonResponse(null, 204);
+    }
+
+    #[Route('/user-contract/{id}/mark-as-withdrawn', name: 'api_patch_user_contract_as_withdrawn', methods: ['PATCH'])]
+    #[IsGranted(User::ROLE_SAVER)]
+    public function patchUserContractAsWithdrawn(UserContract $userContract, FlagUserContractAsWithdrawnService $flagUserContractAsWithdrawnService): JsonResponse
+    {
+        $flagUserContractAsWithdrawnService->flagAsWithdrawn($userContract);
         return new JsonResponse(null, 204);
     }
 

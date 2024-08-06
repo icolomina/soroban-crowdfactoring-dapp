@@ -36,6 +36,9 @@ class UserContract
     #[ORM\Column(length: 255)]
     private ?string $hash = null;
 
+    #[ORM\Column]
+    private ?bool $withdrawn = false;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -121,6 +124,18 @@ class UserContract
     public function setHash(string $hash): static
     {
         $this->hash = $hash;
+
+        return $this;
+    }
+
+    public function isWithdrawn(): ?bool
+    {
+        return $this->withdrawn;
+    }
+
+    public function setWithdrawn(bool $withdrawn): static
+    {
+        $this->withdrawn = $withdrawn;
 
         return $this;
     }

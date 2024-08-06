@@ -74,11 +74,12 @@ class InteractManager {
         $nowDt         = new \DateTimeImmutable();
         $monthsAfterDt = $nowDt->add(\DateInterval::createFromDateString("+ {$claimMonts} months"));
         $days          = $monthsAfterDt->diff($nowDt)->days;
+        $rate          = $contract->getRate() * 100;
 
         $invokeContractHostFunction = new InvokeContractHostFunction($contract->getAddress(), "init", [
             Address::fromAccountId($accountSubmiter->getAccountId())->toXdrSCVal(),
             Address::fromContractId($contract->getToken()->getAddress())->toXdrSCVal(),
-            XdrSCVal::forU32((int)$contract->getRate() * 100),
+            XdrSCVal::forU32((int)$rate),
             XdrSCVal::forU64($days)
         ]);
 

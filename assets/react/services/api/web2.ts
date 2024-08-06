@@ -3,6 +3,7 @@ import {
     getCreateUserContractCall, 
     getEditContractCall, 
     getInitializeContractCall, 
+    getMarkUserContractAsWithdrawnCall, 
     getRetrieveAvailableContractsCall, 
     getRetrieveContractsCall, 
     getRetrieveTokensCall, 
@@ -63,6 +64,16 @@ export class Web2 {
         });
     }
 
+    markUserContractAsWithdrawn(id: number): Promise<Response> {
+        return fetch(getMarkUserContractAsWithdrawnCall(id), {
+            method: "PATCH",
+            mode: "same-origin",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        });
+    }
+
     getContract(id: number): Promise<Response> {
         return fetch(getEditContractCall(id), {
             method: "GET",
@@ -73,7 +84,7 @@ export class Web2 {
         });
     }
 
-    createContract(token: string, rate: number, claimMonths: number, label: string, description: string|null): Promise<Response> {
+    createContract(token: string, rate: string, claimMonths: number, label: string, description: string|null): Promise<Response> {
         return fetch(getCreateContractCall(), {
             method: "POST",
             mode: "same-origin",

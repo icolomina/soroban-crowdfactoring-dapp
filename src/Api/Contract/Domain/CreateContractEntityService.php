@@ -14,7 +14,7 @@ class CreateContractEntityService {
         $contract = new Contract();
         $contract->setCreatedAt(new \DateTimeImmutable());
         $contract->setIssuer($user);
-        $contract->setRate($createContractDto->rate);
+        $contract->setRate((float)$createContractDto->rate);
         $contract->setToken($token);
         $contract->setInitialized(false);
         $contract->setClaimMonths($createContractDto->claimMonths);

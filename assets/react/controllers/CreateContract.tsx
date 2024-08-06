@@ -4,14 +4,20 @@ import { getContractListPage } from "../services/router/router";
 
 interface FormData {
     token: string;
-    rate: number,
+    rate: string,
     claimMonths: number,
     label: string,
     description: string|null
 }
 
+interface FormError {
+    label: string,
+    msg: string
+}
+
 export default function CreateContract () {
-    const [formData, setFormData] = useState<FormData>({ token: 'USDC', rate: 1, claimMonths: 3, label: '', description: ''});
+    const [formData, setFormData] = useState<FormData>({ token: 'USDC', rate: "1", claimMonths: 3, label: '', description: ''});
+    const [formErrors, setFormErrors] = useState<FormError[]>([]);
     const [contractCreated, setContractCreated] = useState<boolean>(false);
     const [creatingContract, setCreatingContract] = useState<boolean>(false);
 
@@ -27,15 +33,23 @@ export default function CreateContract () {
     }
 
     const handleForm = async (event: any) => {
+        setFormErrors([]);
         setCreatingContract(true);
         const web2 = new Web2();
-        web2.createContract(formData.token, Number(formData.rate), Number(formData.claimMonths), formData.label, formData.description).then(
+        web2.createContract(formData.token, formData.rate, Number(formData.claimMonths), formData.label, formData.description)
+         .then(
             (async (response) => {
+                const r = await response.json();
                 if(response.ok) {
-                    const r = await response.json();
                     setContractCreated(true);
                 }
+                else{
+                    setFormErrors(r);
+                    setCreatingContract(false);
+                }
             })
+         )
+         .catch( error => console.log(error)
         )
     }
 
@@ -52,6 +66,17 @@ export default function CreateContract () {
     else{
         return (
             <div>
+
+                <div className="row mb-3" style={{ "display" : formErrors.length > 0 ? "block" : "hidden", color: "red"}}>
+                    <div className="col-md-12">
+                        <ul>
+                            { formErrors.map( (e: FormError) => (
+                                <li><small><strong>{e.label}</strong>: {e.msg}</small></li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+
                 <div className="row mb-3">
                     <div className="col-md-12">
                         <div className="form-floating mb-3 mb-md-0">

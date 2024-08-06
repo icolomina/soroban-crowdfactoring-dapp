@@ -11,7 +11,7 @@ class ContractDtoOutput
         public readonly string $address,
         public readonly string $token,
         public readonly string $tokenCode,
-        public readonly int $rate,
+        public readonly float $rate,
         public readonly string $createdAt,
         public readonly bool $initialized,
         public readonly string $issuer,

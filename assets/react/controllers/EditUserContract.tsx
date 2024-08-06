@@ -50,7 +50,12 @@ export default function EditUserContract(props: EditUserContractProps) {
                     async (trxResponse: Api.SendTransactionResponse) => {
                         const transactionStatus = await contract.queryTransaction(trxResponse);
                         if(transactionStatus == SorobanRpc.Api.GetTransactionStatus.SUCCESS) {
-                            window.location.replace(getUserContractsListPage());
+                            const web2 = new Web2();
+                            web2.markUserContractAsWithdrawn(userContract.id).then(
+                                () => {
+                                    window.location.replace(getUserContractsListPage());
+                                }
+                            )
                         }
                     }
                 )

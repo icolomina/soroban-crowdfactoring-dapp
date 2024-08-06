@@ -1,4 +1,4 @@
-import { Contract, ScInt, SorobanRpc, Transaction, TransactionBuilder, xdr } from "@stellar/stellar-sdk";
+import { Contract, ScInt, SorobanRpc, Transaction, TransactionBuilder } from "@stellar/stellar-sdk";
 import { Address } from "@stellar/stellar-sdk";
 import { TokenParser } from "../soroban/token";
 import { StellarWalletsKit, WalletNetwork } from "@creit.tech/stellar-wallets-kit";
@@ -20,6 +20,11 @@ export class ScContract {
     private baseFee: string = '100';
 
     async init(url: string): Promise<void> {
+
+        if(this.server) {
+            return;
+        }
+
         this.server = new SorobanRpc.Server(url);
         const healthResponse = await this.server.getHealth();
         if(healthResponse.status !== 'healthy') {

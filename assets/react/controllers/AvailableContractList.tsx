@@ -45,10 +45,10 @@ export default function AvailableContractList () {
                         <div className="card mb-4">
                             <div className="card-header">
                                 <i className="fas fa-chart-area me-1"></i>
-                                    No Contracts yet
+                                    
                             </div>
                             <div className="card-body">
-                                <h5>There are no contracts yet</h5>
+                                <h5>At the moment, there are no new opportunities.</h5>
                             </div>
                         </div>
                     </div>

@@ -23,6 +23,7 @@ export default function DepositForm (props: DepositFormProps) {
 
     const [formData, setFormData] = useState<FormData>({ amount: '0' });
     const [loading, setLoading] = useState<boolean>(false);
+    const [errorAmount, setErrorAmount] = useState<boolean>(false);
     const [depositSuccess, setDepositSuccess] = useState<boolean>(false);
     let [wallet, walletSelected] = useWallet([XBULL_ID, FREIGHTER_ID], FREIGHTER_ID, WalletNetwork.TESTNET);
     const contract = new ScContract();
@@ -49,11 +50,18 @@ export default function DepositForm (props: DepositFormProps) {
     const handleChange = (event: any) => {
         const { name, value } = event.target;
         setFormData ( (previousFormData) => ({ ...previousFormData, [name]: value}) )
+        setErrorAmount(false);
     }
 
     const handleForm = async (event: any) => {
         contract.init(props.url);
+
+        if(parseInt(formData.amount) <= 0) {
+            setErrorAmount(true);
+            return;
+        }
         
+        setLoading(true);
         const tokenParser = new TokenParser();
         formData.amount = tokenParser.parseAmount(formData.amount, props.tokenDecimals).toString();
         contract.sendDeposit(wallet, props.contractAddress, formData.amount)
@@ -64,6 +72,7 @@ export default function DepositForm (props: DepositFormProps) {
                         const web2 = new Web2();
                         web2.createUserContract(props.contractAddress, trxResponse.hash, formData.amount).then(
                             () => {
+                                setLoading(false);
                                 setDepositSuccess(true);
                             }
                         )
@@ -80,7 +89,7 @@ export default function DepositForm (props: DepositFormProps) {
                 <div className="spinner-border" role="status">
                     <span className="visually-hidden">Loading...</span>
                 </div>
-                <p>Please wait ...</p>
+                <p>Proccessing the deposit. Only a few seconds and you will become an investor ..</p>
             </div>
         )
     }
@@ -92,6 +101,9 @@ export default function DepositForm (props: DepositFormProps) {
                         <div className="form-floating mb-3 mb-md-0">
                             <input type="text" name="amount" id="amount" className="form-control" value={formData.amount} onChange={handleChange} />
                             <label htmlFor="amount" className="form-label">Amount</label>
+                            <div className="form-text" style={{ display: errorAmount ? "block" : "none", color: 'red'}}>
+                                You must specify an amount
+                            </div>
                         </div>
                     </div>
                 </div>
