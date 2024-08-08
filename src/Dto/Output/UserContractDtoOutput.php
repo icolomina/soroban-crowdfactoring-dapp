@@ -16,7 +16,8 @@ class UserContractDtoOutput
         public readonly string $withdrawalDate,
         public readonly string $deposited,
         public readonly string $interest,
-        public readonly string $total
+        public readonly string $total,
+        public readonly ?string $hash
     ){}
 
     public static function fromEntity(UserContract $userContract): self
@@ -34,7 +35,8 @@ class UserContractDtoOutput
             $withdrawalDate,
             $userContract->getBalance(),
             $userContract->getInterests(),
-            $userContract->getTotal()
+            $userContract->getTotal(),
+            $userContract->getHash()
         );
     }
 }

@@ -94,6 +94,7 @@ export default function EditUserContract(props: EditUserContractProps) {
                             <ul>
                                 <li><strong>Isuuer</strong>: { userContract.contractIssuer }</li>
                                 <li><strong>Token</strong>: { userContract.token } </li>
+                                <li><strong>Hash</strong>: { userContract.hash } </li>
                                 <li><strong>Rate</strong>: { userContract.rate }</li>
                                 <li><strong>Withdrawal Date</strong>: { userContract.withdrawalDate } </li>
                                 <li><strong>Deposited</strong>: { userContract.deposited }</li>

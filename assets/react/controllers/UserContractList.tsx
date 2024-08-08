@@ -12,7 +12,8 @@ export interface UserContract {
     withdrawalDate: string,
     deposited: string,
     interest: string,
-    total: number
+    total: number,
+    hash?: string
 }
 
 export default function UserContractList() {
