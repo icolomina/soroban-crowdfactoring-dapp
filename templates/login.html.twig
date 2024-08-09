@@ -26,7 +26,8 @@
                                                 <label for="password">Password</label>
                                             </div>
                                             <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                                <button type="submit" class="btn btn-primary" >Log in</a>
+                                                <button type="submit" class="btn btn-primary" >Log in</button>
+
                                             </div>
                                         </form>
                                     </div>
@@ -35,6 +36,9 @@
                                         <div class="small" style="color: red; ">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                                     </div>
                                      {% endif %}
+                                     <div class="card-footer text-center py-3">
+                                        <a href="{{ path('get_register_page') }}" >Register here to get an account</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>

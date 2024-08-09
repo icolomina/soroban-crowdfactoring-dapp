@@ -1,4 +1,8 @@
 
+export function getRegisterUserApiCall(): string {
+    return window.location.origin + '/register-user-data';
+}
+
 export function getRetrieveContractsCall(): string {
     return window.location.origin + '/api/contracts';
 }
@@ -65,4 +69,8 @@ export function getEditContractPage(id: number): string {
 
 export function getEditUserContractPage(id: number): string {
     return window.location.origin + '/pages/edit-user-contract/' + id;
+}
+
+export function getLoginPage(): string {
+    return window.location.origin + '/login';
 }

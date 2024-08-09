@@ -31,6 +31,7 @@ security:
     access_control:
          - { path: ^/login, roles: PUBLIC_ACCESS}
          - { path: ^/post-login, roles: PUBLIC_ACCESS}
+         - { path: ^/register, roles: PUBLIC_ACCESS}
          - { path: ^/api, roles: [ROLE_FINANCIAL_ENTITY, ROLE_SAVER] }
          - { path: ^/pages, roles: [ROLE_FINANCIAL_ENTITY, ROLE_SAVER] }
 

@@ -4,6 +4,7 @@ import {
     getEditContractCall, 
     getInitializeContractCall, 
     getMarkUserContractAsWithdrawnCall, 
+    getRegisterUserApiCall, 
     getRetrieveAvailableContractsCall, 
     getRetrieveContractsCall, 
     getRetrieveTokensCall, 
@@ -13,6 +14,17 @@ import {
 } from "../router/router";
 
 export class Web2 {
+
+    registerUser(email: string, name: string, password: string, userType: string): Promise<Response> {
+        return fetch(getRegisterUserApiCall(), {
+            method: "POST",
+            mode: "same-origin",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({'email': email, 'name' : name, 'password': password, 'userType' : userType})
+        });
+    }
 
     getTokens(): Promise<Response> {
         return fetch(getRetrieveTokensCall(), {

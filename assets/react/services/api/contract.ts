@@ -71,6 +71,27 @@ export class ScContract {
         return this.server.sendTransaction(TransactionBuilder.fromXDR(result.result, 'Test SDF Network ; September 2015'));
     }
 
+    async companyWithdrawFunds(wallet: StellarWalletsKit, contract: string, amount: string) {
+
+        const tokenParser  = new TokenParser();
+
+        const address     = await wallet.getPublicKey();
+        const account     = await this.server.getAccount(address);
+        const c           = new Contract(contract);
+        const scAddress   = new Address(address).toScVal();
+        const amountScVal = new ScInt(tokenParser.parseAmount(amount, 4).toString()).toI128();
+
+        const tx = new TransactionBuilder(account, { fee: this.baseFee, networkPassphrase: 'Test SDF Network ; September 2015'})
+            .addOperation(c.call('admin_withdrawal', scAddress, amountScVal))
+            .setTimeout(30)
+            .build()
+        ;
+
+        const readyTx = await this.prepareTransaction(tx, address, c.contractId(), wallet);
+        const result = await wallet.signTx({xdr: readyTx.toXDR(), publicKeys: [address], network: WalletNetwork.TESTNET});
+        return this.server.sendTransaction(TransactionBuilder.fromXDR(result.result, 'Test SDF Network ; September 2015'));
+    }
+
     private async prepareTransaction(tx: Transaction, address: string, contractId: string, wallet: StellarWalletsKit): Promise<Transaction> {
         const simulatedTx = await this.server.simulateTransaction(tx);
         return SorobanRpc.assembleTransaction(tx, simulatedTx).build();

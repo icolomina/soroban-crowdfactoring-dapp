@@ -13,6 +13,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[Route('/pages')]
 class PagesController extends AbstractController
 {
+
     #[Route('/contracts', name: 'get_contracts_page', methods: ['GET'])]
     public function getContractsPage(): Response
     {
@@ -36,7 +37,7 @@ class PagesController extends AbstractController
     #[IsGranted(User::ROLE_FINANCIAL_ENTITY)]
     public function getEditContractPage(int $id): Response
     {
-        return $this->render('contract/contract_edit.html.twig', ['id' => $id]);
+        return $this->render('contract/contract_edit.html.twig', ['id' => $id, 'url' => Networks::TESTNET->value]);
     }
 
     #[Route('/edit-user-contract/{id}', name: 'get_edit_use_contract_page', methods: ['GET'])]

@@ -7,6 +7,7 @@ export interface Contract {
     initialized: boolean,
     address: string,
     token: string,
+    tokenDecimals: number,
     tokenCode: string,
     rate: number,
     createdAt: string,
