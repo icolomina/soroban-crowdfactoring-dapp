@@ -16,7 +16,7 @@ use Soneso\StellarSDK\Responses\Account\AccountResponse;
 use Soneso\StellarSDK\Soroban\Address;
 use Soneso\StellarSDK\Soroban\Responses\GetTransactionResponse;
 use Soneso\StellarSDK\TransactionBuilder;
-use Soneso\StellarSDK\Xdr\XdrInt128Parts;
+
 use Soneso\StellarSDK\Xdr\XdrSCVal;
 
 class InteractManager {
@@ -28,42 +28,6 @@ class InteractManager {
         private readonly EntityManagerInterface $em,
         private readonly Token $token
     ){}
-
-    public function initToken(string $tokenAddress, int $decimal, string $name, string $symbol): void
-    {
-        $keyPairSubmiter = $this->accountManager->getSystemKeyPair();
-        $accountSubmiter = $this->accountManager->getAccount($keyPairSubmiter);
-
-        $invokeContractHostFunction = new InvokeContractHostFunction($tokenAddress, "initialize", [
-            Address::fromAccountId($accountSubmiter->getAccountId())->toXdrSCVal(),
-            XdrSCVal::forU32($decimal),
-            XdrSCVal::forString($name),
-            XdrSCVal::forString($symbol)
-        ]);
-
-        $transactionResponse = $this->processTransaction($invokeContractHostFunction, $accountSubmiter, $keyPairSubmiter);
-        $resultValue = $transactionResponse->getResultValue();
-        if($resultValue->getError()) {
-            throw new \RuntimeException('Token initialize call execution failed: ' . $resultValue->getError()->getCode()->getValue());
-        }
-    }
-
-    public function mintUserWithToken(string $tokenAddress, string $userAddress, int $amount): void
-    {
-        $keyPairSubmiter = $this->accountManager->getSystemKeyPair();
-        $accountSubmiter = $this->accountManager->getAccount($keyPairSubmiter);
-
-        $invokeContractHostFunction = new InvokeContractHostFunction($tokenAddress, "mint", [
-            Address::fromAccountId($userAddress)->toXdrSCVal(),
-            XdrSCVal::forI128(new XdrInt128Parts($amount, $amount))
-        ]);
-
-        $transactionResponse = $this->processTransaction($invokeContractHostFunction, $accountSubmiter, $keyPairSubmiter);
-        $resultValue = $transactionResponse->getResultValue();
-        if($resultValue->getError()) {
-            throw new \RuntimeException('Token mint call execution failed: ' . $resultValue->getError()->getCode()->getValue());
-        }
-    }
 
     public function initContract(Contract $contract): void
     {

@@ -28,7 +28,7 @@ export class ScContract {
         this.server = new SorobanRpc.Server(url);
         const healthResponse = await this.server.getHealth();
         if(healthResponse.status !== 'healthy') {
-            // lanzamos exception
+            throw Error('Stellar Testnet is not available');
         }
     }
 
