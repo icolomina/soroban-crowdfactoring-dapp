@@ -8,7 +8,8 @@ This is a Crowdfactoring decentralized application built using Soroban Smart-Con
 
 ## Installation instructions
 
-This installation instructions have been tested from a Ubuntu 22.04 system. 
+### Requirements
+This installation instructions have been tested from a Ubuntu 22.04 system. Besides, this project uses a docker-compose yaml file to load the database so having [docker-compose](https://docs.docker.com/compose/) is required.
 
 ### Install PHP
 
@@ -37,8 +38,6 @@ Execute the setup.sh bash script to install the rest of the elements required. E
 
 This script will perform the following tasks:
 
-- If [docker-ce](https://docs.docker.com/engine/install/) is not installed, It will install it.
-- If [docker-compose](https://docs.docker.com/compose/) is not installed, It will install it.
 - If [composer](https://getcomposer.org/) is not installed, It will install it.
 - If [symfony-cli](https://symfony.com/download) is not installed, It will install it.
 - Install PHP / Symfony components using "composer install"
