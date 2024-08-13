@@ -28,7 +28,9 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 nvm install 22
 ```
 
-### Setup the application
+### Setup the application 
+
+#### Automatic
 
 Execute the setup.sh bash script to install the rest of the elements required. Execute it from the project root folder.
 
@@ -51,3 +53,19 @@ This script will perform the following tasks:
 - Start local web server using: "symfony server:start"
 
 Once setup.sh finishes, a local web server keeps listening on port 8000. You can now access the application using the link: https://127.0.0.1:8000
+
+#### Manual
+
+- If don't have composer installed in your computer, install it following the instructions [here](https://getcomposer.org/)
+- If don't have symfony-cli installed in your computer, install it following the instructions [here](https://symfony.com/download)
+- Go to the project root folder
+- Execute "composer install"
+- Execute "npm install"
+- Execute "npm run dev"
+- Execute "docker-compose up -d"
+- Execute "doctrine:schema:update --force"
+- Execute "doctrine:fixtures:load"
+- Execute "symfony server:ca:install"
+- Execute "symfony server:start"
+
+Then, open the url https://127.0.0.1:8000
