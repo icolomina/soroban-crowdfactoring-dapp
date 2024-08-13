@@ -42,12 +42,12 @@ This script will perform the following tasks:
 - If [symfony-cli](https://symfony.com/download) is not installed, It will install it.
 - Install PHP / Symfony components using "composer install"
 - Install node dependencies using "npm install"
-- Installing [webpack encore](https://symfony.com/doc/current/frontend/encore/installation.html) assets using "npm run dev"
-- Loading PostgreSQL database by:
+- Install [webpack encore](https://symfony.com/doc/current/frontend/encore/installation.html) assets using "npm run dev"
+- Load PostgreSQL database by:
     - Starting PostgreSQL container using "docker-compose up -d"
     - Creating database schema using "doctrine:schema:update --force -q"
     - Populating database with basic fixtures using "doctrine:fixtures:load -q"
-    - Installing Symfony SSL certificate using "symfony server:ca:install"
-    - Starting local web server using: "symfony server:start"
+- Install Symfony SSL certificate using "symfony server:ca:install"
+- Start local web server using: "symfony server:start"
 
 Once setup.sh finishes, a local web server keeps listening on port 8000. You can now access the application using the link: https://127.0.0.1:8000
