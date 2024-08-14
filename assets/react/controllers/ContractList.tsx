@@ -132,7 +132,7 @@ export default function ContractList () {
                                                 <td>{ c.createdAt }</td>
                                                 <td>
                                                     <button type="button" disabled={c.initialized} className="btn btn-primary btn-sm" role="button" aria-disabled="true" onClick={() => initializeContract(c.id)}>Initialize</button>&nbsp;
-                                                    <button type="button" className="btn btn-primary btn-sm" role="button" aria-disabled="true" onClick={() => editContract(c.id)}>Edit</button>
+                                                    <button type="button" disabled={!c.initialized} className="btn btn-primary btn-sm" role="button" aria-disabled="true" onClick={() => editContract(c.id)}>Edit</button>
                                                 </td>
                                             </tr>
                                         ))}

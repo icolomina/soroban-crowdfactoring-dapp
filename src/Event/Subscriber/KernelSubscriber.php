@@ -29,13 +29,22 @@ class KernelSubscriber implements EventSubscriberInterface{
         $exception = $event->getThrowable();
         
         if($exception->getPrevious() instanceof ValidationFailedException) {
-            $errors = [];
-            $violations = $exception->getPrevious()->getViolations();
-            foreach($violations as $violation) {
-                $errors[] = ['label' => $violation->getPropertyPath(), 'msg' => $violation->getMessage()];
-            }
-            
-            $event->setResponse(new JsonResponse($errors, 422));
+            $event->setResponse(new JsonResponse($this->getErrors($exception->getPrevious()), 422));
         }
+
+        if($exception instanceof ValidationFailedException) {
+            $event->setResponse(new JsonResponse($this->getErrors($exception), 422));
+        }
+    }
+
+    private function getErrors(ValidationFailedException $exception): array 
+    {
+        $errors = [];
+        $violations = $exception->getViolations();
+        foreach($violations as $violation) {
+            $errors[] = ['label' => $violation->getPropertyPath(), 'msg' => $violation->getMessage()];
+        }
+
+        return $errors;
     }
 }
