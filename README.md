@@ -8,7 +8,8 @@ This is a Crowdfactoring decentralized application built using Soroban Smart-Con
 
 ## Installation instructions
 
-This installation instructions have been tested from a Ubuntu 22.04 system. 
+### Requirements
+This installation instructions have been tested from a Ubuntu 22.04 system. Besides, this project uses a docker-compose yaml file to load the database so having [docker-compose](https://docs.docker.com/compose/) is required.
 
 ### Install PHP
 
@@ -27,7 +28,9 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 nvm install 22
 ```
 
-### Setup the application
+### Setup the application 
+
+#### Automatic
 
 Execute the setup.sh bash script to install the rest of the elements required. Execute it from the project root folder.
 
@@ -37,18 +40,32 @@ Execute the setup.sh bash script to install the rest of the elements required. E
 
 This script will perform the following tasks:
 
-- If [docker-ce](https://docs.docker.com/engine/install/) is not installed, It will install it.
-- If [docker-compose](https://docs.docker.com/compose/) is not installed, It will install it.
 - If [composer](https://getcomposer.org/) is not installed, It will install it.
 - If [symfony-cli](https://symfony.com/download) is not installed, It will install it.
 - Install PHP / Symfony components using "composer install"
 - Install node dependencies using "npm install"
-- Installing [webpack encore](https://symfony.com/doc/current/frontend/encore/installation.html) assets using "npm run dev"
-- Loading PostgreSQL database by:
+- Install [webpack encore](https://symfony.com/doc/current/frontend/encore/installation.html) assets using "npm run dev"
+- Load PostgreSQL database by:
     - Starting PostgreSQL container using "docker-compose up -d"
     - Creating database schema using "doctrine:schema:update --force -q"
     - Populating database with basic fixtures using "doctrine:fixtures:load -q"
-    - Installing Symfony SSL certificate using "symfony server:ca:install"
-    - Starting local web server using: "symfony server:start"
+- Install Symfony SSL certificate using "symfony server:ca:install"
+- Start local web server using: "symfony server:start"
 
 Once setup.sh finishes, a local web server keeps listening on port 8000. You can now access the application using the link: https://127.0.0.1:8000
+
+#### Manual
+
+- If don't have composer installed in your computer, install it following the instructions [here](https://getcomposer.org/)
+- If don't have symfony-cli installed in your computer, install it following the instructions [here](https://symfony.com/download)
+- Go to the project root folder
+- Execute "composer install"
+- Execute "npm install"
+- Execute "npm run dev"
+- Execute "docker-compose up -d"
+- Execute "doctrine:schema:update --force"
+- Execute "doctrine:fixtures:load"
+- Execute "symfony server:ca:install"
+- Execute "symfony server:start"
+
+Then, open the url https://127.0.0.1:8000
