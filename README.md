@@ -69,3 +69,74 @@ Once setup.sh finishes, a local web server keeps listening on port 8000. You can
 - Execute "symfony server:start"
 
 Then, open the url https://127.0.0.1:8000
+
+## Folder structure
+As this dApp has been developed using the [Symfony framework](https://symfony.com/), it follows the framework folder organization. Let's enumerate and explain the most important folders step by step:
+
+### The assets folder 
+It contains all the frontend resources (react components, typescript files, css files etc). The *react/controllers* subfolder contains all the react components used by the application. The services subfolder contains other folders of which the following are the most relevant:
+   
+#### api 
+Contains two files: web2.ts and contract.ts
+   - **web2.ts**: This file connects to the dApp API
+   - **contract.ts**: This file connects to Soroban using the JS Stellar SDK and the Stellar Wallets Kit. 
+#### wallet
+Contains a file named *wallet.ts* which holds a React hook to load a Stellar Wallet using the Stellar Wallets Kit.
+
+#### soroban 
+Contains two files: *auth.ts* and *token.ts*.
+   - **auth.ts**: Holds the necessary code to sign auth entries. (This is not necessary since the *assembleTransaction* method of the *SorobanRpc.Api* module does the work).
+   - **token.ts**: Normalizes an amount depending on the number of token decimals.
+
+
+### The public folder
+Contains the compiled assets and all frontend elements. They are compiled using the [Symfony Webpack Encore bundle](https://symfony.com/doc/current/frontend/encore/installation.html). 
+
+### The src folder
+Here is where all the backend code lives, including the code that communicates to Soroban using the [Soneso Stellar SDK](https://github.com/Soneso/stellar-php-sdk). Let's see the most important subfolders
+
+#### The Api subfolder
+Contains the services related to the API calls. Services for registering users, creating contracts, getting contracts etc
+
+#### The Controller subfolder
+Contains the controllers:
+
+   - **PagesController**: Loads the dApp pages (rendering twig templates). These twig templates load the react components inside them thanks to the [Symfony React component](https://symfony.com/bundles/ux-react/current/index.html).
+   - **ApiController**: Contains all the API calls. They are called from the React components and return the responses as JSON.
+  
+   > Both **PagesController** and **ApiController** are protected by the same firewall which configuration remains in the *config/security.yaml* file.
+
+   - **LoginController**: Contains the necessary calls to log-in, logout and register a user. These calls are outside of the firewall.
+
+#### The Dto folder
+Contains some Data Transfer Objects to manage API inputs and outputs
+
+#### Entity
+Contains all the entities (managed by [doctrine](https://symfony.com/doc/current/doctrine.html)) used by the dApp.
+
+#### Repositories
+Contains the repository classes associated with each entity.
+
+#### Event
+Contains an event subscriber that listens to data validation exceptions to format the errors before returning the response to the client.
+
+#### Stellar
+Contains the services that connect to Soroban. Let's see it:
+
+   - **DeployManager**: Located in the *Stellar/Soroban/Contract* folder, it is in charge of deploying a contract using the wasm file contents.
+   - **InstallManager**: Located in the *Stellar/Soroban/Contract* folder, it is in charge of installing a contract given a wasm ID.
+   - **InteractManager**: Located in the *Stellar/Soroban/Contract* folder, it is in charge of:
+      - Initializing a contract
+      - Stopping contract deposits
+      - Getting contract balance
+   - **WasmManager**: Located in the *Stellar/Soroban/Contract* folder, it is in charge of reading wasm file.     
+   - **SorobanTransactionManager**: Located in the *Stellar/Soroban/Transaction* folder, it is in charge of simulating a transaction, adding auth entries and waiting until success or failure.
+   - **ServerManager**: Located in the *Stellar/Soroban* folder, it is in charge of loading the server object and throwing an exception if the server is not healthy.
+   - **AccountManager**: Located in the *Stellar* folder, it is in charge of getting and saving the system KeyPair to sign custodial transactions.
+   - **Networks**: A PHP enum with the stellar test networks (Testnet and Futurenet).
+
+### The templates folder
+Contains the twig templates which are rendered by the Pages Controller routes.
+
+### The wasm folder
+Contains the smart contract wasm file

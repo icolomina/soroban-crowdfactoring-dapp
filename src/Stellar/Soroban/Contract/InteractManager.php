@@ -54,38 +54,6 @@ class InteractManager {
         }
     }
 
-    public function adminDepositToContract(Contract $contract, int $amount): void
-    {
-        $keyPairSubmiter = $this->accountManager->getSystemKeyPair();
-        $accountSubmiter = $this->accountManager->getAccount($keyPairSubmiter);
-
-        $invokeContractHostFunction = new InvokeContractHostFunction($contract->getAddress(), "admin_deposit", [
-            XdrSCVal::forU32($amount)
-        ]);
-
-        $transactionResponse = $this->processTransaction($invokeContractHostFunction, $accountSubmiter, $keyPairSubmiter);
-        $resultValue = $transactionResponse->getResultValue();
-        if($resultValue->getError()) {
-            throw new \RuntimeException('Contract cannot been initialized: ' . $resultValue->getError()->getCode()->getValue());
-        }
-    }
-
-    public function adminWithdrawalFromContract(Contract $contract, int $amount): void
-    {
-        $keyPairSubmiter = $this->accountManager->getSystemKeyPair();
-        $accountSubmiter = $this->accountManager->getAccount($keyPairSubmiter);
-
-        $invokeContractHostFunction = new InvokeContractHostFunction($contract->getAddress(), "admin_withdrawal", [
-            XdrSCVal::forU32($amount)
-        ]);
-
-        $transactionResponse = $this->processTransaction($invokeContractHostFunction, $accountSubmiter, $keyPairSubmiter);
-        $resultValue = $transactionResponse->getResultValue();
-        if($resultValue->getError()) {
-            throw new \RuntimeException('Contract cannot been initialized: ' . $resultValue->getError()->getCode()->getValue());
-        }
-    }
-
     public function getContractBalance(Contract $contract): mixed
     {
         $keyPairSubmiter = $this->accountManager->getSystemKeyPair();
