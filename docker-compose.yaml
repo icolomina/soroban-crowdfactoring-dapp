@@ -7,7 +7,7 @@ networks:
 services:
   database:
     image: postgres
-    container_name: crowdfactoring-database
+    container_name: crowdfactoring-db
     ports:
       - "5497:5432"
     environment:
