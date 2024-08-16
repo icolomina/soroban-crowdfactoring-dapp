@@ -9,6 +9,7 @@ class UserContractDtoOutput
     public function __construct(
         public readonly string $id,
         public readonly string $contractIssuer,
+        public readonly string $contractLabel,
         public readonly string $contractAddress,
         public readonly string $token,
         public readonly float  $rate,
@@ -28,6 +29,7 @@ class UserContractDtoOutput
         return new self(
             $userContract->getId(),
             $userContract->getContract()->getIssuer()->getName(),
+            $userContract->getContract()->getLabel(),
             $userContract->getContract()->getAddress(),
             $userContract->getContract()->getToken()->getName() . ' - ' . $userContract->getContract()->getToken()->getCode(),
             $userContract->getContract()->getRate(),

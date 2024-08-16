@@ -5,6 +5,7 @@ import { getEditUserContractPage } from "../services/router/router";
 export interface UserContract {
     id: number
     contractIssuer: string,
+    contractLabel: string,
     contractAddress: string,
     token: string,
     rate: number,
@@ -85,6 +86,7 @@ export default function UserContractList() {
                                         <tr>
                                             <th scope="col">#</th>
                                             <th scope="col">Issuer</th>
+                                            <th scope="col">Label</th>
                                             <th scope="col">Token</th>
                                             <th scope="col">Rate</th>
                                             <th scope="col">Created At</th>
@@ -100,6 +102,7 @@ export default function UserContractList() {
                                             <tr key={uc.id}>
                                                 <td>{ uc.id }</td>
                                                 <td>{ uc.contractIssuer }</td>
+                                                <td>{ uc.contractLabel }</td>
                                                 <td>{ uc.token }</td>
                                                 <td>{ uc.rate }</td>
                                                 <td>{ uc.createdAt }</td>

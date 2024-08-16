@@ -110,6 +110,7 @@ export default function ContractList () {
                                             <th scope="col">Initialized</th>
                                             <th scope="col">Funds Reached</th>
                                             <th scope="col">Issuer</th>
+                                            <th scope="col">Label</th>
                                             <th scope="col">Address</th>
                                             <th scope="col">Token</th>
                                             <th scope="col">Rate</th>
@@ -125,6 +126,7 @@ export default function ContractList () {
                                                 <td>{ c.initialized ? <i className="bi bi-check-square"></i> : <i className="bi bi-x-square"></i> }</td>
                                                 <td>{ c.fundsReached ? <i className="bi bi-check-square"></i> : <i className="bi bi-x-square"></i> }</td>
                                                 <td>{ c.issuer }</td>
+                                                <td>{ c.label }</td>
                                                 <td>{ c.address }</td>
                                                 <td>{ c.token }</td>
                                                 <td>{ c.rate }</td>

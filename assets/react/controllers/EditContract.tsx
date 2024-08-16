@@ -18,6 +18,7 @@ export default function EditContract(props: EditContractProps) {
 
     const [contract, setContract] = useState<Contract>(null);
     const [loading, setLoading] = useState<boolean>(false);
+    const [loadingText, setLoadingText] = useState<string>('Retrieving contract current funds')
     const [depositsStopped, setDepositsStopped] = useState<boolean>(false);
     const [fundsWithdrawn, setFundsWithdrawn] = useState<boolean>(false);
     let [wallet, walletSelected] = useWallet([XBULL_ID, FREIGHTER_ID], FREIGHTER_ID, WalletNetwork.TESTNET);
@@ -63,6 +64,8 @@ export default function EditContract(props: EditContractProps) {
       }, []);
 
     const stopContractDeposits = () => {
+        setLoadingText('Stopping contract deposits');
+        setLoading(true);
         const web2 = new Web2();
         web2.stopContractDeposits(contract.id).then(
             (r: Response) => {
@@ -76,6 +79,7 @@ export default function EditContract(props: EditContractProps) {
     const withdrawFunds = async() => {
         const scContract = new ScContract();
         scContract.init(props.url);
+        setLoadingText('Withdrawing funds ...');
         setLoading(true);
 
         const tokenParser = new TokenParser();
@@ -99,7 +103,7 @@ export default function EditContract(props: EditContractProps) {
                 <div className="spinner-border" role="status">
                     <span className="visually-hidden">Loading...</span>
                 </div>
-                <p>Retrieving contract current funds</p>
+                <p>{loadingText}</p>
             </div>
         )
       }

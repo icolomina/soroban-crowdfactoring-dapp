@@ -12,7 +12,7 @@ class TokenFixtures extends Fixture
     {
         $tokenUSDC = new Token();
         $tokenUSDC->setAddress('CBIELTK6YBZJU5UP2WWQEUCYKLPU6AUNZ2BQ4WWFEIE3USCIHMXQDAMA');
-        $tokenUSDC->setDecimals(4);
+        $tokenUSDC->setDecimals(3);
         $tokenUSDC->setCode('USDC');
         $tokenUSDC->setName('Circle Dollar');
         $tokenUSDC->setCreatedAt(new \DateTimeImmutable());
